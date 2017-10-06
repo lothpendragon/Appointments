@@ -29,11 +29,13 @@ Appointment.prototype.getDate = function(){
     return this.datetime.toDateString();
 };
 Appointment.prototype.getTime = function(){
-    return this.datetime.getHours() + ":" + this.datetime.getMinutes();
+    function checkTime(i) {
+        return (i < 10) ? "0" + i : i;}
+    return checkTime(this.datetime.getHours()) + ":" + checkTime(this.datetime.getMinutes());
 };
 Appointment.prototype.tableRow = function(){
     var s = "<tr><td>" + this.getDate()
-        + "</td><td>" + this.getTime()
+        + "</td><td>" + this.getTime().toString()
         + "</td><td>" + this.subject
         //+ "</td><td>" + this.description
         + "</td><td><input type='checkbox' value='" + this.completed + "'/>"
@@ -51,3 +53,6 @@ Appointment.prototype.toString = function(){
     }
     return s;
 };
+
+Appointment.prototype.Compare = function(a,b){
+    return (a.datetime.getDate() + a.datetime.getTime()) - (b.datetime.getDate() + b.datetime.getTime())};
